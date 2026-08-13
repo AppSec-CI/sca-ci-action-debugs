@@ -14,6 +14,7 @@ jobs:
       uses: actions/checkout@v4
  
     - name: Run Orca SCA Scan
+      id: orca-sca-scan
       uses: orcasecurity/shiftleft-sca-action@v1
       with:
           api_token: ${{ secrets.ORCA_SECURITY_API_TOKEN }}
@@ -22,3 +23,11 @@ jobs:
           log_path: orca_debugs/
           path:
             "."
+
+    - name: Orca Debugs
+      uses: actions/upload-artifact@v4
+      if: ${{ always() && steps.orca-sca-scan.outputs.exit_code != 0 }}
+      with:
+        name: orca-debugs
+        path: |
+          orca_debugs
