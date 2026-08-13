@@ -18,5 +18,7 @@ jobs:
       with:
           api_token: ${{ secrets.ORCA_SECURITY_API_TOKEN }}
           project_key: ${{ vars.ORCA_SECURITY_PROJECT_KEY }}
+          debug: true
+          log_path: orca_debugs/
           path:
             "."
